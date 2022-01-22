@@ -49,7 +49,7 @@ public class AverageBuyPriceController {
         );
     }
 
-    public void calculateAverageBuyPrice(Context ctx) {
+    public void calculateAverageBuyPrice(Context ctx) throws IOException {
         var result = new ArrayList<AverageBuyPriceDTO>();
 
         var portfolio = binanceApi.fetchPortfolio().balances.stream()
