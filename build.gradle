@@ -5,6 +5,9 @@ plugins {
 group 'dev.haedhutner'
 version '1.0-SNAPSHOT'
 
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
 repositories {
     mavenCentral()
 }
@@ -15,6 +18,10 @@ dependencies {
     implementation 'org.slf4j:slf4j-simple:1.7.33'
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.google.inject:guice:5.0.1'
+    implementation 'org.aeonbits.owner:owner-java8:1.0.12'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'org.apache.commons:commons-math3:3.6.1'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'

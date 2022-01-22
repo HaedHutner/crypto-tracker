@@ -2,9 +2,7 @@ package dev.haedhutner;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import dev.haedhutner.modules.AppPropertiesModule;
-import dev.haedhutner.modules.LoggingModule;
-import dev.haedhutner.modules.OpenApiModule;
+import dev.haedhutner.modules.*;
 
 public class CryptoTracker {
 
@@ -12,7 +10,10 @@ public class CryptoTracker {
         Injector injector = Guice.createInjector(
                 new LoggingModule(),
                 new OpenApiModule(),
-                new AppPropertiesModule()
+                new AppPropertiesModule(),
+                new WebServerModule(),
+                new OkHttpModule(),
+                new GsonModule()
         );
 
         injector.getInstance(CryptoTrackerWebServer.class).start();
