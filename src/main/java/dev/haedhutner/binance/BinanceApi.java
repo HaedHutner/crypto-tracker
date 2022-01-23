@@ -111,25 +111,28 @@ public class BinanceApi {
         var req = new Request.Builder();
 
         req.addHeader("X-MBX-APIKEY", appProps.binanceApiToken());
+        req.url(generateRequestUrl(appProps.binanceHost() + endpoint, queryParams));
+        req.method(method, null);
 
-        var url = HttpUrl.parse(appProps.binanceHost() + endpoint).newBuilder();
+        return req.build();
+    }
+
+    private HttpUrl generateRequestUrl(String url, Map<String,String> queryParams) {
+        var urlBuilder = HttpUrl.parse(url).newBuilder();
 
         if (!queryParams.containsKey("timestamp")) {
             queryParams.put("timestamp", String.valueOf(Instant.now().toEpochMilli()));
         }
 
-        queryParams.forEach(url::setQueryParameter);
+        queryParams.forEach(urlBuilder::setQueryParameter);
 
         try {
-            url.setQueryParameter("signature", generateSignature(queryParams));
+            urlBuilder.setQueryParameter("signature", generateSignature(queryParams));
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             e.printStackTrace();
         }
 
-        req.url(url.build());
-        req.method(method, null);
-
-        return req.build();
+        return urlBuilder.build();
     }
 
     private String generateSignature(Map<String, String> queryParams) throws NoSuchAlgorithmException, InvalidKeyException {

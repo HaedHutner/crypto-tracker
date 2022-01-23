@@ -4,13 +4,12 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.haedhutner.binance.BinanceApi;
-import dev.haedhutner.binance.dto.AccountInfoDTO;
 import dev.haedhutner.controller.dto.AverageBuyPriceDTO;
 import io.javalin.Javalin;
+import io.javalin.http.ContentType;
 import io.javalin.http.Context;
 import io.javalin.plugin.openapi.dsl.OpenApiBuilder;
 import org.apache.commons.lang3.mutable.MutableDouble;
-import org.apache.commons.math3.stat.descriptive.WeightedEvaluation;
 import org.apache.commons.math3.stat.descriptive.moment.Mean;
 import org.slf4j.Logger;
 
@@ -114,6 +113,7 @@ public class AverageBuyPriceController {
             logger.info("END " + b.asset);
         });
 
+        ctx.contentType(ContentType.APPLICATION_JSON);
         ctx.result(gson.toJson(result));
     }
 }
